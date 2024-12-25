@@ -1,31 +1,48 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
-import { toast } from "react-toastify";
-import DatePicker from "react-datepicker";
+
+// import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import Swal from "sweetalert2";
+import { Link } from "react-router-dom";
+// eslint-disable-next-line no-unused-vars
+import UpdateDate from './UpdateDate';
 
 const Bookings = () => {
   const [bookings, setBookings] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [newDate, setNewDate] = useState(null);
+  // const [newDate, setNewDate] = useState(null);
+  // eslint-disable-next-line no-unused-vars
   const [selectedBooking, setSelectedBooking] = useState(null);
 
   // Fetch bookings
-  useEffect(() => {
-    const fetchBookings = async () => {
-      try {
-        const response = await axios.get("http://localhost:4000/book-room");
-        setBookings(response.data);
-      } catch (error) {
-        console.error("Error fetching bookings:", error);
-        toast.error("Failed to fetch bookings.");
-      } finally {
-        setLoading(false);
-      }
-    };
+  // useEffect(() => {
+  //   const fetchBookings = async () => {
+  //     try {
+  //       const response = await axios.get("http://localhost:4000/book-room");
+  //       setBookings(response.data);
+  //     } catch (error) {
+  //       console.error("Error fetching bookings:", error);
+  //       toast.error("Failed to fetch bookings.");
+  //     } finally {
+  //       setLoading(false);
+  //     }
+  //   };
 
-    fetchBookings();
+  //   fetchBookings();
+  // }, []);
+
+  useEffect(() => {
+    axios
+      .get("http://localhost:4000/book-room")
+      .then((response) => {
+        setBookings(response.data);
+        setLoading(false);
+      })
+      .catch((error) => {
+        console.error("Error fetching tutorials:", error);
+        setLoading(false);
+      });
   }, []);
 
   // Handle Delete Booking
@@ -48,36 +65,42 @@ const Bookings = () => {
           })
           .catch((err) => {
             console.error("Error deleting booking:", err.message);
-            Swal.fire("Error", "Failed to delete the booking. Try again.", "error");
+            Swal.fire(
+              "Error",
+              "Failed to delete the booking. Try again.",
+              "error"
+            );
           });
       }
     });
   };
 
   // Handle Update Booking Date
-  const handleUpdateDate = async (bookingId) => {
-    if (!newDate) {
-      toast.error("Please select a new date for the booking!");
-      return;
-    }
+  // const handleUpdateDate = async () => {
+  //   if (!newDate || !selectedBooking) {
+  //     toast.error("Please select a booking and a new date!");
+  //     return;
+  //   }
 
-    try {
-      await axios.put(`http://localhost:4000/book-room/update/${bookingId}`, { newDate });
-      setBookings((prev) =>
-        prev.map((booking) =>
-          booking._id === bookingId
-            ? { ...booking, bookingDate: newDate.toISOString().split("T")[0] }
-            : booking
-        )
-      );
-      toast.success("Booking date updated successfully!");
-      setNewDate(null);
-      setSelectedBooking(null);
-    } catch (error) {
-      console.error("Error updating booking:", error);
-      toast.error("Failed to update the booking date!");
-    }
-  };
+  //   try {
+  //     await axios.put(`http://localhost:4000/book-room/${selectedBooking._id}`, {
+  //       bookingDate: newDate.toISOString().split("T")[0],
+  //     });
+  //     setBookings((prev) =>
+  //       prev.map((booking) =>
+  //         booking._id === selectedBooking._id
+  //           ? { ...booking, bookingDate: newDate.toISOString().split("T")[0] }
+  //           : booking
+  //       )
+  //     );
+  //     toast.success("Booking date updated successfully!");
+  //     setNewDate(null);
+  //     setSelectedBooking(null);
+  //   } catch (error) {
+  //     console.error("Error updating booking:", error);
+  //     toast.error("Failed to update the booking date!");
+  //   }
+  // };
 
   if (loading) {
     return <p className="text-center mt-4">Loading bookings...</p>;
@@ -101,6 +124,8 @@ const Bookings = () => {
               <h2 className="text-xl font-semibold">{room.name}</h2>
               <p className="text-gray-600 mb-2">{room.description}</p>
               <p className="font-bold text-gray-800">Price: ${room.price}</p>
+              <p className="font-bold text-gray-800">UpdateDate: ${room.time}</p>
+              {/* <p className="font-bold text-gray-800">Date: ${room.bookingDate}</p> */}
               <p>
                 <strong>Booking Date:</strong>{" "}
                 {room.bookingDate || "Not Specified"}
@@ -112,12 +137,11 @@ const Bookings = () => {
                 >
                   Delete
                 </button>
-                <button
-                  onClick={() => setSelectedBooking(room)}
-                  className="bg-yellow-500 text-white py-2 px-4 rounded hover:bg-yellow-600"
-                >
-                  Update Date
-                </button>
+                <Link to={`/updatedate/${room._id}`}>
+                  <button className="bg-green-500 text-white py-2 px-4 rounded hover:bg-green-600 mt-4">
+                    Update Date
+                  </button>
+                </Link>
               </div>
             </div>
           ))}
@@ -128,20 +152,14 @@ const Bookings = () => {
 
       {selectedBooking && (
         <div className="modal">
-          <div className="modal-content">
-            <h3>Update Booking Date</h3>
-            <DatePicker
+          <div className="modal-content p-4 bg-white shadow rounded-md">
+            <h3 className="text-lg font-bold mb-4">Update Booking Date</h3>
+            {/* <DatePicker
               selected={newDate}
               onChange={(date) => setNewDate(date)}
               dateFormat="yyyy-MM-dd"
-              className="p-2 border"
-            />
-            <button
-              onClick={() => handleUpdateDate(selectedBooking._id)}
-              className="bg-green-500 text-white py-2 px-4 rounded hover:bg-green-600 mt-4"
-            >
-              Update Date
-            </button>
+              className="p-2 border rounded w-full"
+            /> */}
           </div>
         </div>
       )}
@@ -150,3 +168,6 @@ const Bookings = () => {
 };
 
 export default Bookings;
+
+
+

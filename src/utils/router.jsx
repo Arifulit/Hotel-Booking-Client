@@ -21,6 +21,8 @@ import RoomDetails from "../components/RoomDetails";
 import ContactAddress from "../components/ContactAddress";
 import Services from "../components/Services";
 import Testimonials from "../components/Testimonials";
+import ErrorPage from "../components/ErrorPage";
+import UpdateDate from "../components/UpdateDate";
 // import FeaturedRooms from "../components/FeaturedRooms";
 
 
@@ -84,7 +86,16 @@ const router = createBrowserRouter([
           {
             path:"testimonials",
             element:<Testimonials></Testimonials>
-          }
+          },
+          {
+            path:"/updatedate/:id",
+            element:<UpdateDate></UpdateDate>,
+            loader: ({ params }) => fetch(`http://localhost:4000/book-room/${params.id}`)
+          },
+          {
+            path:"*",
+            element:<ErrorPage></ErrorPage>
+            },
 
         ]
     }

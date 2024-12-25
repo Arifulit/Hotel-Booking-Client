@@ -175,6 +175,7 @@ const RoomDetails = () => {
               <DatePicker
                 selected={bookingDate}
                 onChange={(date) => setBookingDate(date)}
+                
                 minDate={new Date()}
                 dateFormat="yyyy/MM/dd"
                 className="w-full p-2 border rounded-lg"

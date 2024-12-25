@@ -1,4 +1,4 @@
-# Visa Navigator Portal
+<!-- # Visa Navigator Portal
 
 **Live Site URL:** [Visa Navigator Portal](https://assignment-10-sunflower-533f0.web.app/)
 
@@ -29,4 +29,4 @@
 - Additional filters and sorting options for improved user experience.
 
 ## License
-This project is licensed under the MIT License.
+This project is licensed under the MIT License. -->
