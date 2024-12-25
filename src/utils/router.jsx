@@ -59,7 +59,7 @@ const router = createBrowserRouter([
             element:<UpdateProfile></UpdateProfile>
            },
            {
-            path:"/rooms",
+            path:"/room",
             element:<Rooms></Rooms>
            },
            {

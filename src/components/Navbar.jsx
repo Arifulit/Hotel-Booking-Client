@@ -239,7 +239,7 @@ const Navbar = () => {
           Home
         </NavLink>
         <NavLink
-          to="/rooms"
+          to="/room"
           className={({ isActive }) =>
             isActive ? "text-yellow-300 font-bold" : "hover:text-yellow-300"
           }
