@@ -18,7 +18,7 @@ const RoomDetails = () => {
   // Fetch reviews when a room is selected
   useEffect(() => {
     if (selectedRoom) {
-      fetch(`http://localhost:5000/reviews/${selectedRoom.id}`)
+      fetch(`http://localhost:4000/reviews/${selectedRoom.id}`)
         .then((response) => response.json())
         .then((data) => setReviews(data))
         .catch((error) => console.error("Error fetching reviews:", error));
@@ -37,67 +37,6 @@ const RoomDetails = () => {
     setShowModal(true);
   };
 
-  
-  // const handleConfirmBooking = async () => {
-  //   if (!bookingDate) {
-  //     alert("Please select a booking date.");
-  //     return;
-  //   }
-  
-  //   if (!selectedRoom.available) {
-  //     alert("This room is already booked.");
-  //     return;
-  //   }
-  
-  //   setLoading(true);
-  
-  //   try {
-  //     const response = await fetch("http://localhost:5000/book-room", {
-  //       method: "POST",
-  //       headers: { "Content-Type": "application/json" },
-  //       body: JSON.stringify({
-  //         roomId: selectedRoom.id,
-  //         image: selectedRoom.image,
-  //         name: selectedRoom.name,
-  //         price: selectedRoom.price,
-  //         comment: selectedRoom.comment,
-  //         rating: selectedRoom.rating,
-  //         description: selectedRoom.description,
-  //         bookingDate,
-  //       }),
-  //     });
-  
-  //     if (!response.ok) {
-  //       const errorData = await response.json();
-  //       alert(errorData.message || "Failed to book the room.");
-  //       return;
-  //     }
-  
-  //     // Update availability of selected room in state
-  //     setSelectedRoom((prevRoom) => ({ ...prevRoom, available: false }));
-  
-  //     // Update the room list to mark the room as unavailable
-  //     setRooms((prevRooms) =>
-  //       prevRooms.map((room) =>
-  //         room.id === selectedRoom.id
-  //           ? { ...room, available: false }
-  //           : room
-  //       )
-  //     );
-  
-  //     alert("Room booked successfully!");
-  //     setShowModal(false);
-  //   } catch (error) {
-  //     console.error("Error booking the room:", error);
-  //     alert("There was an issue booking the room. Please try again.");
-  //   } finally {
-  //     setLoading(false);
-  //   }
-  // };
-  
-
-
-
   const handleConfirmBooking = async () => {
     if (!bookingDate) {
       alert("Please select a booking date.");
@@ -112,7 +51,7 @@ const RoomDetails = () => {
     setLoading(true);
   
     try {
-      const response = await fetch("http://localhost:5000/book-room", {
+      const response = await fetch("http://localhost:4000/book-room", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({

@@ -8,7 +8,7 @@ const FeaturedRooms = () => {
   // Fetch room data using Axios
   useEffect(() => {
     axios
-      .get("http://localhost:5000/rooms")
+      .get("http://localhost:4000/rooms")
       .then((response) => {
         setRooms(response.data); // Update rooms state with fetched data
         setLoading(false); // Stop loading

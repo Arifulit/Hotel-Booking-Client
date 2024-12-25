@@ -9,7 +9,7 @@ const Rooms = () => {
   // Fetch all rooms data from the server
   useEffect(() => {
     axios
-      .get("http://localhost:5000/rooms") // Replace with your backend URL
+      .get("http://localhost:4000/rooms") // Replace with your backend URL
       .then((response) => {
         setRooms(response.data); // Set room data to state
         setLoading(false); // Stop loading after data is fetched

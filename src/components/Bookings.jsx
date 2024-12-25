@@ -15,7 +15,7 @@ const Bookings = () => {
   useEffect(() => {
     const fetchBookings = async () => {
       try {
-        const response = await axios.get("http://localhost:5000/book-room");
+        const response = await axios.get("http://localhost:4000/book-room");
         setBookings(response.data);
       } catch (error) {
         console.error("Error fetching bookings:", error);
@@ -41,7 +41,7 @@ const Bookings = () => {
     }).then((result) => {
       if (result.isConfirmed) {
         axios
-          .delete(`http://localhost:5000/book-room/${id}`)
+          .delete(`http://localhost:4000/book-room/${id}`)
           .then(() => {
             setBookings((prev) => prev.filter((booking) => booking._id !== id));
             Swal.fire("Deleted!", "The booking has been deleted.", "success");
@@ -62,7 +62,7 @@ const Bookings = () => {
     }
 
     try {
-      await axios.put(`http://localhost:5000/book-room/update/${bookingId}`, { newDate });
+      await axios.put(`http://localhost:4000/book-room/update/${bookingId}`, { newDate });
       setBookings((prev) =>
         prev.map((booking) =>
           booking._id === bookingId
