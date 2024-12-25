@@ -37,7 +37,7 @@ const Rooms = () => {
         {rooms.map((room) => (
           <Link
             // to={`/rooms/${room._id}`} // Link to room details page
-            to={`/rooms/:roomId}`} // Link to room details page
+            to={`/rooms/${room._id}`} // Link to room details page
             key={room._id}
             className="bg-white shadow-md rounded-lg overflow-hidden cursor-pointer"
           >
