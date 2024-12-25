@@ -28,7 +28,7 @@
     "react-spinners": "^0.15.0",
     "react-toastify": "^10.0.6",
     "slick-carousel": "^1.8.1",
-    "sweetalert2": "^11.14.5",
+    "sweetalert2": "^11.15.3",
     "swiper": "^11.1.15"
   },
   "devDependencies": {
