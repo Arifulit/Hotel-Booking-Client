@@ -124,7 +124,7 @@ const Bookings = () => {
               <h2 className="text-xl font-semibold">{room.name}</h2>
               <p className="text-gray-600 mb-2">{room.description}</p>
               <p className="font-bold text-gray-800">Price: ${room.price}</p>
-              <p className="font-bold text-gray-800">UpdateDate: ${room.time}</p>
+              {/* <p className="font-bold text-gray-800">UpdateDate: ${room.time}</p> */}
               {/* <p className="font-bold text-gray-800">Date: ${room.bookingDate}</p> */}
               <p>
                 <strong>Booking Date:</strong>{" "}

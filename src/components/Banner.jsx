@@ -41,7 +41,7 @@ const Banner = () => {
   const navigate = useNavigate();
 
   const handleButtonClick = () => {
-    navigate("/rooms");
+    navigate("/room");
   };
 
   return (

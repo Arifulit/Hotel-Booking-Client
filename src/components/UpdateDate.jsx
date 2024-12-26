@@ -1,4 +1,4 @@
-import { useLoaderData, useNavigate } from "react-router-dom";
+import { Link, useLoaderData, useNavigate } from "react-router-dom";
 
 import { useState } from "react";
 import DatePicker from "react-datepicker";
@@ -14,6 +14,8 @@ const UpdateDate = () => {
 
   const handleUpdateTutorial = async (e) => {
     e.preventDefault();
+
+    console.log("Update clicked");
 
     // Extract form data
     const form = e.target;
@@ -46,11 +48,13 @@ const UpdateDate = () => {
         } else {
           Swal.fire("Info!", "No changes were made.", "info");
         }
+        navigate("/bookings");
       })
       .catch((error) => {
         console.error("Error updating tutorial:", error);
         Swal.fire("Error!", "Something went wrong.", "error");
       });
+
   };
 
   return (
@@ -87,9 +91,12 @@ const UpdateDate = () => {
 
           {/* Submit Button */}
           <div className="form-control mt-6">
+
+            {/* <Link to="/bookings"> */}
             <button type="submit" className="btn btn-primary">
               Update
             </button>
+            {/* </Link> */}
           </div>
         </form>
       </div>
