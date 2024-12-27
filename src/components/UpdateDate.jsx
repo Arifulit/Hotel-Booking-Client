@@ -28,7 +28,7 @@ const UpdateDate = () => {
     // console.log("Sending updated data:", updatedTutorial);
 
     // Send PUT request
-    fetch(`http://localhost:4000/book-room/${_id}`, {
+    fetch(`https://assignment-hotel-booking-server.vercel.app/book-room/${_id}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",

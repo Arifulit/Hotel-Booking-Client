@@ -19,7 +19,7 @@ const Bookings = () => {
 
   useEffect(() => {
     axios
-      .get("http://localhost:4000/book-room")
+      .get("https://assignment-hotel-booking-server.vercel.app/book-room")
       .then((response) => {
         setBookings(response.data);
         setLoading(false);
@@ -44,7 +44,7 @@ const Bookings = () => {
     }).then((result) => {
       if (result.isConfirmed) {
         axios
-          .delete(`http://localhost:4000/book-room/${id}`)
+          .delete(`https://assignment-hotel-booking-server.vercel.app/book-room/${id}`)
           .then(() => {
             setBookings((prev) => prev.filter((booking) => booking._id !== id));
             Swal.fire("Deleted!", "The booking has been deleted.", "success");

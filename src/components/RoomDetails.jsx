@@ -20,7 +20,7 @@ const RoomDetails = () => {
 
   useEffect(() => {
     if (selectedRoom) {
-      fetch(`http://localhost:4000/rooms/${selectedRoom.id}`)
+      fetch(`https://assignment-hotel-booking-server.vercel.app/rooms/${selectedRoom.id}`)
         .then((response) => response.json())
         .then((data) => setReviews(data))
         .catch((error) => console.error("Error fetching reviews:", error));
@@ -65,7 +65,7 @@ const RoomDetails = () => {
     setLoading(true);
 
     try {
-      const response = await fetch("http://localhost:4000/book-room", {
+      const response = await fetch("https://assignment-hotel-booking-server.vercel.app/book-room", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({

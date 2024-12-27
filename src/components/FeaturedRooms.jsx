@@ -10,7 +10,7 @@ const FeaturedRooms = () => {
   // Fetch room data using Axios
   useEffect(() => {
     axios
-      .get("http://localhost:4000/rooms")
+      .get("https://assignment-hotel-booking-server.vercel.app/rooms")
       .then((response) => {
         setRooms(response.data); // Update rooms state with fetched data
         setLoading(false); // Stop loading

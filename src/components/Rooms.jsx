@@ -10,7 +10,7 @@ const Rooms = () => {
   // Fetch all rooms data from the server
   useEffect(() => {
     axios
-      .get("http://localhost:4000/rooms") // Replace with your backend URL
+      .get("https://assignment-hotel-booking-server.vercel.app/rooms") // Replace with your backend URL
       .then((response) => {
         setRooms(response.data); // Set room data to state
         setLoading(false); // Stop loading after data is fetched
