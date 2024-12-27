@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import { useState, useEffect } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
@@ -15,7 +16,7 @@ const Rooms = () => {
         setLoading(false); // Stop loading after data is fetched
       })
       .catch((error) => {
-        console.error("Error fetching rooms:", error);
+        // console.error("Error fetching rooms:", error);
         setLoading(false); // Stop loading in case of error
       });
   }, []);

@@ -1,6 +1,3 @@
-
-// import { Link } from "react-router-dom";
-
 const Footer = () => {
     return (
         <footer className="bg-blue-600 text-white py-8 mt-8">
@@ -8,9 +5,9 @@ const Footer = () => {
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                     {/* Left: Website Name and Copyright */}
                     <div className="text-center md:text-left">
-                        <h3 className="text-2xl font-bold mb-4">Visa Explorer</h3>
+                        <h3 className="text-2xl font-bold mb-4">Hotel</h3>
                         <p className="text-sm">
-                            &copy; {new Date().getFullYear()} Visa Explorer. All Rights Reserved.
+                            &copy; {new Date().getFullYear()} Hotel Explorer. All Rights Reserved.
                         </p>
                     </div>
 
@@ -20,7 +17,7 @@ const Footer = () => {
                         <ul className="space-y-2 text-sm">
                             <li>Email: <a href="mailto:support@visaexplorer.com" className="text-yellow-300">support@visaexplorer.com</a></li>
                             <li>Phone: <a href="tel:+1234567890" className="text-yellow-300">+1 (234) 567-890</a></li>
-                            <li>Address: 123 Visa St, City, Country</li>
+                            <li>Address: 123 Hotel St, City, Country</li>
                         </ul>
                     </div>
 

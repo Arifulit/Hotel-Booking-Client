@@ -1,28 +1,26 @@
+/* eslint-disable no-unused-vars */
 
 
 /* eslint-disable no-undef */
-
 import { useState, useEffect } from "react";
-import { useLoaderData } from "react-router-dom";
+import { useLoaderData, useNavigate } from "react-router-dom"; // Import useNavigate
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import Swal from "sweetalert2";
 
 const RoomDetails = () => {
-
   const room = useLoaderData();
-  console.log(room);
+  const navigate = useNavigate(); // Initialize navigate
   const [selectedRoom, setSelectedRoom] = useState(null);
-  // eslint-disable-next-line no-unused-vars
-  const [rooms, setRooms] = useState(useLoaderData());
   const [showModal, setShowModal] = useState(false);
   const [bookingDate, setBookingDate] = useState(null);
   const [loading, setLoading] = useState(false);
+  // eslint-disable-next-line no-unused-vars
   const [reviews, setReviews] = useState([]);
 
-  // Fetch reviews when a room is selected
   useEffect(() => {
     if (selectedRoom) {
-      fetch(`http://localhost:4000/reviews/${selectedRoom.id}`)
+      fetch(`http://localhost:4000/rooms/${selectedRoom.id}`)
         .then((response) => response.json())
         .then((data) => setReviews(data))
         .catch((error) => console.error("Error fetching reviews:", error));
@@ -35,7 +33,11 @@ const RoomDetails = () => {
 
   const handleBookNow = () => {
     if (!selectedRoom?.available) {
-      alert("This room is not available for booking.");
+      Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: "This room is not available for booking.",
+      });
       return;
     }
     setShowModal(true);
@@ -43,23 +45,31 @@ const RoomDetails = () => {
 
   const handleConfirmBooking = async () => {
     if (!bookingDate) {
-      alert("Please select a booking date.");
+      Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: "Please select a booking date.",
+      });
       return;
     }
-  
+
     if (!selectedRoom.available) {
-      alert("This room is already booked.");
+      Swal.fire({
+        icon: "error",
+        title: "Already Booked!",
+        text: "This room is already booked.",
+      });
       return;
     }
-  
+
     setLoading(true);
-  
+
     try {
       const response = await fetch("http://localhost:4000/book-room", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          roomName: selectedRoom.name,  // Send room name instead of roomId
+          roomName: selectedRoom.name,
           image: selectedRoom.image,
           name: selectedRoom.name,
           price: selectedRoom.price,
@@ -69,56 +79,56 @@ const RoomDetails = () => {
           bookingDate,
         }),
       });
-  
+
       if (!response.ok) {
         const errorData = await response.json();
-        alert(errorData.message || "Failed to book the room.");
+        Swal.fire({
+          icon: "error",
+          title: "Booking Failed",
+          text: errorData.message || "Failed to book the room.",
+        });
         return;
       }
-    
-      // Update availability of selected room in state (mark as unavailable)
-      // setSelectedRoom((prevRoom) => ({ ...prevRoom, available: false }));
-  
-      // Update the room list to mark the room as unavailable
-      // setRooms((prevRooms) =>
-      //   prevRooms?.map((room) =>
-      //     room.name === selectedRoom.name  // Match by name
-      //       ? { ...room, available: false }
-      //       : room
-      //   )
-      // );
-  
-      alert("Room booked successfully!");
+
+      Swal.fire({
+        icon: "success",
+        title: "Booking Confirmed!",
+        text: `Your booking for "${selectedRoom.name}" has been successfully confirmed.`,
+      }).then(() => {
+        navigate("/bookings"); // Redirect to /bookings route
+      });
+
       setShowModal(false);
     } catch (error) {
-      console.error("Error booking the room:", error);
-      alert("There was an issue booking the room. Please try again.");
+      // console.error("Error booking the room:", error);
+      Swal.fire({
+        icon: "error",
+        title: "Error!",
+        text: "There was an issue booking the room. Please try again.",
+      });
     } finally {
       setLoading(false);
     }
   };
-  
 
   return (
     <div className="container mx-auto p-6">
       <h1 className="text-3xl font-bold mb-4">Room Details</h1>
       <ul className="space-y-4">
-        
-          <li
-            key={room.id}
-            className={`p-4 border rounded-lg shadow hover:bg-gray-100 cursor-pointer ${
-              room.available ? "hover:bg-green-100" : "hover:bg-red-100"
-            }`}
-            onClick={() => handleSelectRoom(room)}
-          >
-            <h2 className="text-xl font-semibold">{room.name}</h2>
-            <p>{room.description}</p>
-            <p className="text-gray-700">Price: ${room.price} per night</p>
-            <p className={room.available ? "text-green-500" : "text-red-500"}>
-              {room.available ? "Available" : "Not Available"}
-            </p>
-          </li>
-        
+        <li
+          key={room.id}
+          className={`p-4 border rounded-lg shadow hover:bg-gray-100 cursor-pointer ${
+            room.available ? "hover:bg-green-100" : "hover:bg-red-100"
+          }`}
+          onClick={() => handleSelectRoom(room)}
+        >
+          <h2 className="text-xl font-semibold">{room.name}</h2>
+          <p>{room.description}</p>
+          <p className="text-gray-700">Price: ${room.price} per night</p>
+          <p className={room.available ? "text-green-500" : "text-red-500"}>
+            {room.available ? "Available" : "Not Available"}
+          </p>
+        </li>
       </ul>
 
       {selectedRoom && (
@@ -148,25 +158,6 @@ const RoomDetails = () => {
         </div>
       )}
 
-      {reviews.length === 0 && selectedRoom && (
-        <p>No reviews available for this room.</p>
-      )}
-
-      {reviews.length > 0 && (
-        <div className="mt-4">
-          <h3 className="text-xl font-semibold">Reviews</h3>
-          <ul className="space-y-2">
-            {reviews.map((review) => (
-              <li key={review.id} className="p-4 border rounded-lg">
-                <p><strong>{review.user}</strong></p>
-                <p>{review.comment}</p>
-                <p>Rating: {review.rating}</p>
-              </li>
-            ))}
-          </ul>
-        </div>
-      )}
-
       {showModal && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
           <div className="bg-white rounded-lg shadow-lg max-w-md w-full p-6">
@@ -179,7 +170,6 @@ const RoomDetails = () => {
               <DatePicker
                 selected={bookingDate}
                 onChange={(date) => setBookingDate(date)}
-                
                 minDate={new Date()}
                 dateFormat="yyyy/MM/dd"
                 className="w-full p-2 border rounded-lg"
@@ -208,5 +198,3 @@ const RoomDetails = () => {
 };
 
 export default RoomDetails;
-
-

@@ -1,5 +1,7 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
+import { Link } from "react-router-dom";
+
 
 const FeaturedRooms = () => {
   const [rooms, setRooms] = useState([]); // State to store room data
@@ -70,7 +72,15 @@ const FeaturedRooms = () => {
           </div>
         ))}
       </div>
-      <h2 className="text-center text-gray-600 mt-6">Total Rooms: {rooms.length}</h2>
+   
+      <div className="flex justify-center mt-8">
+    <Link to="/room">
+      <button className="bg-blue-600 text-white py-2 px-4 rounded hover:bg-blue-700">
+        See All Rooms
+      </button>
+    </Link>
+  </div>
+      
     </div>
   );
 };

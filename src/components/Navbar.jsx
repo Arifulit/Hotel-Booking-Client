@@ -1,6 +1,4 @@
 
-
-
 import { useContext, useState } from "react";
 import { Link, NavLink, useNavigate } from "react-router-dom";
 import { AuthContext } from "../provider/AuthProvider";
@@ -48,14 +46,14 @@ const Navbar = () => {
         {/* Logo */}
         <Link to="/" className="text-2xl font-bold">
           <img
-            src="https://cdn3d.iconscout.com/3d/premium/thumb/visa-3d-icon-download-in-png-blend-fbx-gltf-file-formats--passport-document-id-identity-immigration-pack-holidays-icons-8093139.png"
+            src="https://media.istockphoto.com/id/1049008198/photo/booking-hotel-on-internet-travel-planning.jpg?s=612x612&w=0&k=20&c=xLeYQE8WooOKhZzCYI2OG4Do_Hgxl_CPhIFgcgg4DYo="
             alt="Logo"
-            className="w-12 h-12"
+            className="w-12 h-12 rounded-lg"
           />
         </Link>
       </div>
 
-      {/* Navigation Links */}
+      {/* Desktop Navigation Links */}
       <div className="hidden md:flex space-x-6 text-lg">
         <NavLink
           to="/"
@@ -81,7 +79,6 @@ const Navbar = () => {
         >
           My Bookings
         </NavLink>
-       
       </div>
 
       {/* User Authentication Section */}
@@ -158,7 +155,7 @@ const Navbar = () => {
               Home
             </NavLink>
             <NavLink
-              to="/rooms"
+              to="/room"
               onClick={() => setIsMenuOpen(false)}
               className={({ isActive }) =>
                 isActive ? "text-yellow-300 font-bold" : "hover:text-yellow-300"
@@ -175,6 +172,15 @@ const Navbar = () => {
             >
               My Bookings
             </NavLink>
+            {/* If logged in, show Logout option */}
+            {user && user.email && (
+              <button
+                onClick={handleLogout}
+                className="bg-yellow-500 text-black px-4 py-2 rounded hover:bg-yellow-400"
+              >
+                Logout
+              </button>
+            )}
           </div>
         </div>
       )}
@@ -183,3 +189,4 @@ const Navbar = () => {
 };
 
 export default Navbar;
+

@@ -8,12 +8,11 @@ import Testimonials from "./Testimonials";
 
 const Home = () => {
 
-
     return (
     <>
 
         <div className="text-black"> {/* You can adjust the color as needed */}
-          
+     
         <Banner></Banner>
          <ContactAddress></ContactAddress>
         <FeaturedRooms></FeaturedRooms>

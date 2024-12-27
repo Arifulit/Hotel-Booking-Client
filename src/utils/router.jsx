@@ -23,7 +23,9 @@ import Services from "../components/Services";
 import Testimonials from "../components/Testimonials";
 import ErrorPage from "../components/ErrorPage";
 import UpdateDate from "../components/UpdateDate";
+import ReviewModal from "../components/ReviewModal";
 // import FeaturedRooms from "../components/FeaturedRooms";
+import PrivateRoute from './../components/PrivateRoute copy';
 
 
 
@@ -66,7 +68,7 @@ const router = createBrowserRouter([
            },
            {
             path:"/bookings",
-            element:<Bookings></Bookings>
+            element:<PrivateRoute><Bookings></Bookings></PrivateRoute>
            },
         
         {
@@ -95,6 +97,13 @@ const router = createBrowserRouter([
           {
             path:"*",
             element:<ErrorPage></ErrorPage>
+            },
+
+            {
+              path: "/review/:reviewId",
+              element:<ReviewModal></ReviewModal>,
+              loader: ({params}) =>
+                fetch(`http://localhost:4000/rooms/${params.roomId}`),
             },
 
         ]

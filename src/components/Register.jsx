@@ -1,8 +1,8 @@
-// Register.js
 import { useContext, useState } from "react";
 import { AuthContext } from "../provider/AuthProvider";
 import { Link, useNavigate } from "react-router-dom";
 import { updateProfile } from "firebase/auth";
+import Swal from "sweetalert2";
 
 const Register = () => {
   const { createNewUser, handleGoogleLogin, setUser } = useContext(AuthContext);
@@ -39,8 +39,13 @@ const Register = () => {
         });
       })
       .then(() => {
-        alert(`Welcome, ${name.value}! Registration is complete.`);
-        navigate("/");
+        // SweetAlert success
+        Swal.fire({
+          icon: "success",
+          title: "Registration Successful!",
+          text: `Welcome, ${name.value}! Your account has been created.`,
+        });
+        navigate("/"); // Redirect to homepage
       })
       .catch((err) => setError(err.message));
   };
@@ -48,8 +53,15 @@ const Register = () => {
   const handleGoogleSignIn = () => {
     handleGoogleLogin()
       .then((result) => {
-        alert(`Welcome, ${result.user.displayName || result.user.email}!`);
-        navigate("/");
+        const user = result.user;
+        setUser(user);
+        // SweetAlert success
+        Swal.fire({
+          icon: "success",
+          title: "Google Sign-In Successful!",
+          text: `Welcome, ${user.displayName || user.email}!`,
+        });
+        navigate("/"); // Redirect to homepage
       })
       .catch((err) => setError(err.message));
   };
@@ -100,7 +112,7 @@ const Register = () => {
             Sign in with Google
           </button>
           <p>
-            Already have an account?{' '}
+            Already have an account?{" "}
             <Link to="/login" className="text-blue-500 hover:underline">
               Login
             </Link>
@@ -112,4 +124,3 @@ const Register = () => {
 };
 
 export default Register;
-

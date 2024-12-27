@@ -1,4 +1,4 @@
-import { Link, useLoaderData, useNavigate } from "react-router-dom";
+import { useLoaderData, useNavigate } from "react-router-dom";
 
 import { useState } from "react";
 import DatePicker from "react-datepicker";
@@ -15,7 +15,7 @@ const UpdateDate = () => {
   const handleUpdateTutorial = async (e) => {
     e.preventDefault();
 
-    console.log("Update clicked");
+    // console.log("Update clicked");
 
     // Extract form data
     const form = e.target;
@@ -25,7 +25,7 @@ const UpdateDate = () => {
     };
 
     // Log for debugging
-    console.log("Sending updated data:", updatedTutorial);
+    // console.log("Sending updated data:", updatedTutorial);
 
     // Send PUT request
     fetch(`http://localhost:4000/book-room/${_id}`, {
@@ -50,8 +50,9 @@ const UpdateDate = () => {
         }
         navigate("/bookings");
       })
+      // eslint-disable-next-line no-unused-vars
       .catch((error) => {
-        console.error("Error updating tutorial:", error);
+        // console.error("Error updating tutorial:", error);
         Swal.fire("Error!", "Something went wrong.", "error");
       });
 

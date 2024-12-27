@@ -1,3 +1,4 @@
+
 import { useState, useEffect } from "react";
 import axios from "axios";
 
@@ -15,22 +16,6 @@ const Bookings = () => {
   // eslint-disable-next-line no-unused-vars
   const [selectedBooking, setSelectedBooking] = useState(null);
 
-  // Fetch bookings
-  // useEffect(() => {
-  //   const fetchBookings = async () => {
-  //     try {
-  //       const response = await axios.get("http://localhost:4000/book-room");
-  //       setBookings(response.data);
-  //     } catch (error) {
-  //       console.error("Error fetching bookings:", error);
-  //       toast.error("Failed to fetch bookings.");
-  //     } finally {
-  //       setLoading(false);
-  //     }
-  //   };
-
-  //   fetchBookings();
-  // }, []);
 
   useEffect(() => {
     axios
@@ -39,8 +24,9 @@ const Bookings = () => {
         setBookings(response.data);
         setLoading(false);
       })
+      // eslint-disable-next-line no-unused-vars
       .catch((error) => {
-        console.error("Error fetching tutorials:", error);
+        // console.error("Error fetching tutorials:", error);
         setLoading(false);
       });
   }, []);
@@ -63,8 +49,9 @@ const Bookings = () => {
             setBookings((prev) => prev.filter((booking) => booking._id !== id));
             Swal.fire("Deleted!", "The booking has been deleted.", "success");
           })
+          // eslint-disable-next-line no-unused-vars
           .catch((err) => {
-            console.error("Error deleting booking:", err.message);
+            // console.error("Error deleting booking:", err.message);
             Swal.fire(
               "Error",
               "Failed to delete the booking. Try again.",
@@ -75,32 +62,7 @@ const Bookings = () => {
     });
   };
 
-  // Handle Update Booking Date
-  // const handleUpdateDate = async () => {
-  //   if (!newDate || !selectedBooking) {
-  //     toast.error("Please select a booking and a new date!");
-  //     return;
-  //   }
-
-  //   try {
-  //     await axios.put(`http://localhost:4000/book-room/${selectedBooking._id}`, {
-  //       bookingDate: newDate.toISOString().split("T")[0],
-  //     });
-  //     setBookings((prev) =>
-  //       prev.map((booking) =>
-  //         booking._id === selectedBooking._id
-  //           ? { ...booking, bookingDate: newDate.toISOString().split("T")[0] }
-  //           : booking
-  //       )
-  //     );
-  //     toast.success("Booking date updated successfully!");
-  //     setNewDate(null);
-  //     setSelectedBooking(null);
-  //   } catch (error) {
-  //     console.error("Error updating booking:", error);
-  //     toast.error("Failed to update the booking date!");
-  //   }
-  // };
+ 
 
   if (loading) {
     return <p className="text-center mt-4">Loading bookings...</p>;
@@ -124,8 +86,7 @@ const Bookings = () => {
               <h2 className="text-xl font-semibold">{room.name}</h2>
               <p className="text-gray-600 mb-2">{room.description}</p>
               <p className="font-bold text-gray-800">Price: ${room.price}</p>
-              {/* <p className="font-bold text-gray-800">UpdateDate: ${room.time}</p> */}
-              {/* <p className="font-bold text-gray-800">Date: ${room.bookingDate}</p> */}
+             
               <p>
                 <strong>Booking Date:</strong>{" "}
                 {room.bookingDate || "Not Specified"}
@@ -168,6 +129,5 @@ const Bookings = () => {
 };
 
 export default Bookings;
-
 
 
