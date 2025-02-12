@@ -1,5 +1,3 @@
-// Import necessary modules
-
 import { Swiper, SwiperSlide } from "swiper/react";
 import { useNavigate } from "react-router-dom";
 
@@ -40,10 +38,6 @@ const slides = [
 const Banner = () => {
   const navigate = useNavigate();
 
-  const handleButtonClick = () => {
-    navigate("/room");
-  };
-
   return (
     <div className="relative w-full h-[70vh]">
       <Swiper
@@ -51,12 +45,10 @@ const Banner = () => {
         centeredSlides={true}
         loop={true}
         autoplay={{
-          delay: 5000,
+          delay: 4000, // Slightly faster transitions
           disableOnInteraction: false,
         }}
-        pagination={{
-          clickable: true,
-        }}
+        pagination={{ clickable: true }}
         navigation={true}
         modules={[Autoplay, Pagination, Navigation]}
         className="h-full"
@@ -64,18 +56,22 @@ const Banner = () => {
         {slides.map((slide, index) => (
           <SwiperSlide key={index}>
             <div
-              className="relative w-full h-full bg-cover bg-center"
+              className="relative w-full h-full bg-cover bg-center transition-all duration-500"
               style={{ backgroundImage: `url(${slide.image})` }}
             >
-              <div className="absolute inset-0 bg-black bg-opacity-40 flex items-center justify-center">
-                <div className="text-center text-white px-4">
-                  <h1 className="text-4xl md:text-6xl font-bold mb-4">
+              {/* Overlay */}
+              <div className="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center">
+                {/* Slide Content */}
+                <div className="text-center text-white px-6 max-w-3xl">
+                  <h1 className="text-3xl md:text-5xl font-bold mb-4 drop-shadow-lg">
                     {slide.title}
                   </h1>
-                  <p className="text-lg md:text-xl mb-6">{slide.description}</p>
+                  <p className="text-lg md:text-xl mb-6 opacity-90">
+                    {slide.description}
+                  </p>
                   <button
-                    onClick={handleButtonClick}
-                    className="bg-blue-600 text-white px-6 py-3 rounded-md hover:bg-blue-700 transition duration-300"
+                    onClick={() => navigate("/room")}
+                    className="bg-blue-600 text-white px-6 py-3 rounded-lg shadow-lg hover:bg-blue-700 focus:ring-4 focus:ring-blue-300 transition duration-300"
                   >
                     {slide.buttonText}
                   </button>
