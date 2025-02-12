@@ -1,14 +1,11 @@
 const Loading = () => {
-    return (
-      <div className="relative min-h-screen flex items-center justify-center bg-gray-100">
-        <div className="absolute inset-0 bg-black opacity-30"></div>
-        <div className="z-10 text-center text-white">
-          <span className="loading loading-bars loading-lg mb-4"></span>
-          <p className="text-xl font-semibold">Loading, please wait...</p>
-        </div>
+  return (
+      <div className=" mt-[3rem]">
+          <div className=" flex min-h-screen mx-auto justify-center items-center">
+              <span className="loading loading-bars loading-lg"></span>
+          </div>
       </div>
-    );
-  };
-  
-  export default Loading;
-  
+  );
+};
+
+export default Loading;

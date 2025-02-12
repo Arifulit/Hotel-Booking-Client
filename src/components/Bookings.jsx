@@ -7,6 +7,7 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import Swal from "sweetalert2";
 import { Link } from "react-router-dom";
+import Loading from "./Loading";
 
 const Bookings = () => {
   const [bookings, setBookings] = useState([]);
@@ -51,7 +52,7 @@ const Bookings = () => {
   };
 
   if (loading) {
-    return <p className="text-center text-gray-500 mt-4">Loading bookings...</p>;
+    return <p className="text-center text-gray-500 mt-4"><Loading></Loading></p>;
   }
 
   return (
