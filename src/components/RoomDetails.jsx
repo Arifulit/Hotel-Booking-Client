@@ -1,16 +1,14 @@
 /* eslint-disable no-unused-vars */
 
-
-/* eslint-disable no-undef */
 import { useState, useEffect } from "react";
-import { useLoaderData, useNavigate } from "react-router-dom"; // Import useNavigate
+import { useLoaderData, useNavigate } from "react-router-dom";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import Swal from "sweetalert2";
 
 const RoomDetails = () => {
   const room = useLoaderData();
-  const navigate = useNavigate(); // Initialize navigate
+  const navigate = useNavigate();
   const [selectedRoom, setSelectedRoom] = useState(null);
   const [showModal, setShowModal] = useState(false);
   const [bookingDate, setBookingDate] = useState(null);
@@ -95,12 +93,11 @@ const RoomDetails = () => {
         title: "Booking Confirmed!",
         text: `Your booking for "${selectedRoom.name}" has been successfully confirmed.`,
       }).then(() => {
-        navigate("/bookings"); // Redirect to /bookings route
+        navigate("/bookings");
       });
 
       setShowModal(false);
     } catch (error) {
-      // console.error("Error booking the room:", error);
       Swal.fire({
         icon: "error",
         title: "Error!",
@@ -113,11 +110,11 @@ const RoomDetails = () => {
 
   return (
     <div className="container mx-auto p-6">
-      <h1 className="text-3xl font-bold mb-4">Room Details</h1>
+      <h1 className="text-3xl font-bold mb-4 text-center">Room Details</h1>
       <ul className="space-y-4">
         <li
           key={room.id}
-          className={`p-4 border rounded-lg shadow hover:bg-gray-100 cursor-pointer ${
+          className={`p-4 border rounded-lg shadow-md hover:bg-gray-100 cursor-pointer ${
             room.available ? "hover:bg-green-100" : "hover:bg-red-100"
           }`}
           onClick={() => handleSelectRoom(room)}
@@ -137,7 +134,7 @@ const RoomDetails = () => {
           <img
             src={selectedRoom.image}
             alt={selectedRoom.name}
-            className="w-full rounded-lg mb-4"
+            className="w-full rounded-lg mb-4 shadow-lg"
           />
           <p><strong>Name:</strong> {selectedRoom.name}</p>
           <p><strong>Description:</strong> {selectedRoom.description}</p>

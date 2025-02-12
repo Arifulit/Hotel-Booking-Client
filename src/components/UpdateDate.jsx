@@ -1,31 +1,23 @@
 import { useLoaderData, useNavigate } from "react-router-dom";
-
 import { useState } from "react";
 import DatePicker from "react-datepicker";
 import Swal from "sweetalert2";
-
+import "react-datepicker/dist/react-datepicker.css";
 
 const UpdateDate = () => {
-
   const [bookingDate, setBookingDate] = useState(null);
   const updateData = useLoaderData();
   const { _id } = updateData;
   const navigate = useNavigate();
 
-  const handleUpdateTutorial = async (e) => {
+  const handleUpdateBooking = async (e) => {
     e.preventDefault();
-
-    // console.log("Update clicked");
 
     // Extract form data
     const form = e.target;
-    const updatedTutorial = {
+    const updatedBooking = {
       time: form.time.value,
-     
     };
-
-    // Log for debugging
-    // console.log("Sending updated data:", updatedTutorial);
 
     // Send PUT request
     fetch(`https://assignment-hotel-booking-server.vercel.app/book-room/${_id}`, {
@@ -33,7 +25,7 @@ const UpdateDate = () => {
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(updatedTutorial),
+      body: JSON.stringify(updatedBooking),
     })
       .then((res) => {
         if (!res.ok) {
@@ -43,61 +35,48 @@ const UpdateDate = () => {
       })
       .then((data) => {
         if (data.modifiedCount > 0) {
-          Swal.fire("Success!", "Tutorial updated successfully!", "success");
-          navigate("/mytutorials");
+          Swal.fire("Success!", "Booking date updated successfully!", "success");
+          navigate("/bookings");
         } else {
           Swal.fire("Info!", "No changes were made.", "info");
         }
-        navigate("/bookings");
       })
       // eslint-disable-next-line no-unused-vars
       .catch((error) => {
-        // console.error("Error updating tutorial:", error);
-        Swal.fire("Error!", "Something went wrong.", "error");
+        Swal.fire("Error!", "Something went wrong. Try again.", "error");
       });
-
   };
 
   return (
-    <div className="lg:w-3/6 mx-auto mt-20 mb-3">
-      <div className="text-center p-10">
-        <h1 className="text-5xl text-orange-500 font-bold">Update Tutorial</h1>
-        <p className="py-6">Update your tutorial details below!</p>
+    <div className="lg:w-2/3 mx-auto mt-16 mb-8">
+      <div className="text-center p-8">
+        <h1 className="text-4xl font-bold text-indigo-700">Update Booking Date</h1>
+        <p className="mt-4 text-xl text-gray-600">Choose a new date for your booking</p>
       </div>
-      <div className="card bg-base-100 w-full shrink-0 shadow-2xl">
-        <form onSubmit={handleUpdateTutorial} className="card-body">
-          {/* User Details */}
 
-          <div>
-            <div className="form-control flex-1">
-            
-                
-            <div className="mb-4">
-              <label className="text-lg font-semibold mb-2 block">Select Booking Date:</label>
-            
+      <div className="bg-white shadow-xl rounded-xl p-8 max-w-xl mx-auto">
+        <form onSubmit={handleUpdateBooking} className="space-y-6">
+          {/* Date Picker Section */}
+          <div className="form-control">
+            <label className="text-lg font-medium text-gray-700 mb-3 block">Select New Booking Date:</label>
             <DatePicker
-                selected={bookingDate}
-                onChange={(date) => setBookingDate(date)}
-                minDate={new Date()}
-                name="time"
-                dateFormat="yyyy/MM/dd"
-                className="w-full p-2 border rounded-lg"
-              />
-           
-            </div>
-             
-            
-            </div>
+              selected={bookingDate}
+              onChange={(date) => setBookingDate(date)}
+              minDate={new Date()}
+              name="time"
+              dateFormat="yyyy/MM/dd"
+              className="w-full p-4 border-2 border-gray-300 rounded-lg shadow-md focus:outline-none focus:ring-2 focus:ring-indigo-500"
+            />
           </div>
 
           {/* Submit Button */}
           <div className="form-control mt-6">
-
-            {/* <Link to="/bookings"> */}
-            <button type="submit" className="btn btn-primary">
-              Update
+            <button
+              type="submit"
+              className="w-full bg-indigo-600 text-white py-3 px-6 rounded-lg hover:bg-indigo-700 transition duration-300"
+            >
+              Update Booking Date
             </button>
-            {/* </Link> */}
           </div>
         </form>
       </div>
@@ -106,5 +85,3 @@ const UpdateDate = () => {
 };
 
 export default UpdateDate;
-
-
