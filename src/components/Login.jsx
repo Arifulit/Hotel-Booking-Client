@@ -30,7 +30,7 @@ const Login = () => {
             .then((result) => {
                 const user = result.user;
                 const users = { email: email };
-                axios.post("https://assignment-hotel-booking-server.vercel.app/jwt", users, { withCredentials: true })
+                axios.post("http://localhost:4000/jwt", users, { withCredentials: true })
                     .then((res) => {
                         // console.log(res.data);
                     });
@@ -78,7 +78,7 @@ const Login = () => {
     };
 
     return (
-        <div className="flex justify-center items-center min-h-screen bg-gray-100">
+        <div className="flex justify-center items-center min-h-screen">
             <div className="w-full mt-16 max-w-md bg-white rounded-lg shadow-lg p-8">
                 <div className="text-center mb-8">
                     <h1 className="text-3xl font-bold text-gray-800">Login Now!</h1>

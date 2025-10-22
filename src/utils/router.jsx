@@ -1,22 +1,12 @@
 import { createBrowserRouter } from "react-router-dom";
-// import MainLayout from "../components/MainLayout";
-
 import Home from "../components/Home";
-
-
 import Login from "../components/Login";
 import Register from "../components/Register";
 import MainLayout from "../MainLayout/MainLayout";
-// import MyAddVisas from "../components/AddEquipment";
-// import AddEquipment from "../components/AddEquipment";
-// import MyAddVisa from "../components/AddVisa";
 import MyProfile from "../components/MyProfile";
 import UpdateProfile from "../components/UpdateProfile";
 import Rooms from "../components/Rooms";
-// import MyBookings from "../components/MyBookings";
 import Bookings from "../components/Bookings";
-// import RoomDetails from "../components/RoomDetails";
-// import RoomsPage from "../components/RoomPage";
 import RoomDetails from "../components/RoomDetails";
 import ContactAddress from "../components/ContactAddress";
 import Services from "../components/Services";
@@ -24,90 +14,94 @@ import Testimonials from "../components/Testimonials";
 import ErrorPage from "../components/ErrorPage";
 import UpdateDate from "../components/UpdateDate";
 import ReviewModal from "../components/ReviewModal";
-// import FeaturedRooms from "../components/FeaturedRooms";
-import PrivateRoute from './../components/PrivateRoute copy';
 
-
+import PrivateRoute from "./../components/PrivateRoute copy";
 
 const router = createBrowserRouter([
-    {
+  {
+    path: "/",
+    element: <MainLayout></MainLayout>,
+
+    children: [
+      {
         path: "/",
-        element: <MainLayout></MainLayout>,
+        element: <Home></Home>,
 
+      },
 
-        children: [
-            {
-                path: "/",
-                element: <Home></Home>,
-                // loader: () =>fetch('https://assignment-sunflower-server.vercel.app/visa') 
+      {
+        path: "/login",
+        element: <Login></Login>,
+      },
+      {
+        path: "/register",
+        element: <Register></Register>,
+      },
 
-            },
-            
-            {
-                path: "/login",
-                element: <Login></Login>,
+      {
+        path: "/my-profile",
+        element: <MyProfile></MyProfile>,
+      },
+      {
+        path: "/update-profile",
+        element: <UpdateProfile></UpdateProfile>,
+      },
+      {
+        path: "/room",
+        element: <Rooms></Rooms>,
+      },
+      {
+        path: "/bookings",
+        element: (
+          <PrivateRoute>
+            <Bookings></Bookings>
+          </PrivateRoute>
+        ),
+      },
 
-            },
-            {
-                path: "/register",
-                element: <Register></Register>,
+      {
+        path: "/rooms/:roomId",
+        element: <RoomDetails />,
+        loader: ({ params }) =>
+          fetch(
+            `http://localhost:4000/rooms/${params.roomId}`
+          ),
+      },
+      {
+        path: "/contact-address",
+        element: <ContactAddress></ContactAddress>,
+      },
+      {
+        path: "/services",
+        element: <Services></Services>,
+      },
+      {
+        path: "testimonials",
+        element: <Testimonials></Testimonials>,
+      },
+      {
+        path: "/updatedate/:id",
+        element: <UpdateDate></UpdateDate>,
+        loader: ({ params }) =>
+          fetch(
+            `http://localhost:4000/book-room/${params.id}`
+          ),
+      },
+      {
+        path: "*",
+        element: <ErrorPage></ErrorPage>,
+      },
 
-            },
-          
-            {
-                path:"/my-profile",
-                element:<MyProfile></MyProfile>       
-           } ,
-           {
-            path:"/update-profile",
-            element:<UpdateProfile></UpdateProfile>
-           },
-           {
-            path:"/room",
-            element:<Rooms></Rooms>
-           },
-           {
-            path:"/bookings",
-            element:<PrivateRoute><Bookings></Bookings></PrivateRoute>
-           },
-        
-        {
-            path: "/rooms/:roomId",
-            element: <RoomDetails />,
-            loader: ({params}) =>
-              fetch(`https://assignment-hotel-booking-server.vercel.app/rooms/${params.roomId}`),
-          },
-          {
-            path:"/contact-address",
-            element:<ContactAddress></ContactAddress>
-          },
-          {
-            path:"/services",
-            element:<Services></Services>
-          },
-          {
-            path:"testimonials",
-            element:<Testimonials></Testimonials>
-          },
-          {
-            path:"/updatedate/:id",
-            element:<UpdateDate></UpdateDate>,
-            loader: ({ params }) => fetch(`https://assignment-hotel-booking-server.vercel.app/book-room/${params.id}`)
-          },
-          {
-            path:"*",
-            element:<ErrorPage></ErrorPage>
-            },
-
-            {
-              path: "/review/:reviewId",
-              element:<ReviewModal></ReviewModal>,
-              loader: ({params}) =>
-                fetch(`https://assignment-hotel-booking-server.vercel.app/rooms/${params.roomId}`),
-            },
-
-        ]
-    }
-])
+      {
+        path: "/review/:reviewId",
+        element: <ReviewModal></ReviewModal>,
+        loader: ({ params }) =>
+          fetch(
+            `http://localhost:4000/rooms/${params.roomId}`
+          ),
+      },
+    ],
+  },
+]);
 
 export default router;

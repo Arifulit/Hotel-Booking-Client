@@ -1,8 +1,3 @@
-
-
-
-
-
 import { useState, useEffect } from "react";
 import axios from "axios";
 import Swal from "sweetalert2";
@@ -15,13 +10,12 @@ const Bookings = () => {
 
   useEffect(() => {
     axios
-      .get("https://assignment-hotel-booking-server.vercel.app/book-room")
+      .get("http://localhost:4000/book-room")
       .then((response) => {
         setBookings(response.data);
         setLoading(false);
       })
-      // eslint-disable-next-line no-unused-vars
-      .catch((error) => {
+      .catch(() => {
         setLoading(false);
       });
   }, []);
@@ -39,7 +33,7 @@ const Bookings = () => {
     }).then((result) => {
       if (result.isConfirmed) {
         axios
-          .delete(`https://assignment-hotel-booking-server.vercel.app/book-room/${id}`)
+          .delete(`http://localhost:4000/book-room/${id}`)
           .then(() => {
             setBookings((prev) => prev.filter((booking) => booking._id !== id));
             Swal.fire("Deleted!", "The booking has been deleted.", "success");
@@ -52,14 +46,18 @@ const Bookings = () => {
   };
 
   if (loading) {
-    return <p className="text-center text-gray-500 mt-4"><Loading></Loading></p>;
+    return (
+      <div className="flex justify-center items-center h-screen">
+        <Loading />
+      </div>
+    );
   }
 
   return (
-    <div className="container mx-auto p-6">
-      <h1 className="text-3xl font-bold text-center text-gray-800 mb-8">Your Bookings</h1>
+    <div className="container mx-auto px-4 py-8">
+      <h1 className="text-4xl font-bold text-center text-gray-800 mb-10">Your Bookings</h1>
       {bookings.length > 0 ? (
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
           {bookings.map((room) => (
             <div
               key={room._id}
@@ -76,15 +74,15 @@ const Bookings = () => {
               <p className="text-gray-500 mt-2">
                 <strong>Booking Date:</strong> {room.bookingDate || "Not Specified"}
               </p>
-              <div className="flex space-x-4 mt-6">
+              <div className="flex flex-col md:flex-row space-y-2 md:space-y-0 md:space-x-4 mt-6">
                 <button
-                  className="bg-red-500 text-white py-2 px-6 rounded-lg hover:bg-red-600 transition duration-300"
+                  className="bg-red-500 text-white py-2 px-6 rounded-lg hover:bg-red-600 transition duration-300 w-full md:w-auto"
                   onClick={() => handleCancelBooking(room._id)}
                 >
                   Cancel Booking
                 </button>
-                <Link to={`/updatedate/${room._id}`}>
-                  <button className="bg-green-500 text-white py-2 px-6 rounded-lg hover:bg-green-600 transition duration-300">
+                <Link to={`/updatedate/${room._id}`} className="w-full md:w-auto">
+                  <button className="bg-green-500 text-white py-2 px-6 rounded-lg hover:bg-green-600 transition duration-300 w-full">
                     Update Date
                   </button>
                 </Link>
@@ -93,7 +91,7 @@ const Bookings = () => {
           ))}
         </div>
       ) : (
-        <p className="text-center text-gray-500 mt-8">You have no bookings available.</p>
+        <p className="text-center text-gray-500 mt-8 text-lg">You have no bookings available.</p>
       )}
     </div>
   );

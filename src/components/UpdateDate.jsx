@@ -20,7 +20,7 @@ const UpdateDate = () => {
     };
 
     // Send PUT request
-    fetch(`https://assignment-hotel-booking-server.vercel.app/book-room/${_id}`, {
+    fetch(`http://localhost:4000/book-room/${_id}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",

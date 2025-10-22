@@ -1,9 +1,9 @@
 const ContactAddress = () => {
   return (
-    <div className="container mx-auto p-6">
+    <div className="container w-full mx-auto p-6">
       <div className="flex flex-col gap-8">
         {/* Contact Information */}
-        <div className="space-y-4">
+        {/* <div className="space-y-4">
           <h3 className="text-3xl font-semibold text-indigo-600">Contact Us</h3>
           <address className="text-lg text-gray-700">
             <div>
@@ -21,7 +21,7 @@ const ContactAddress = () => {
               </a>
             </div>
           </address>
-        </div>
+        </div> */}
 
         {/* Map Section */}
         <div>
