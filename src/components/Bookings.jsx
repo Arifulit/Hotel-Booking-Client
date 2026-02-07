@@ -54,35 +54,38 @@ const Bookings = () => {
   }
 
   return (
-    <div className="container mx-auto px-4 py-8">
-      <h1 className="text-4xl font-bold text-center text-gray-800 mb-10">Your Bookings</h1>
+    <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-16">
+      <div className="text-center mb-12">
+        <h1 className="section-title">Your Bookings</h1>
+        <p className="section-subtitle">Manage upcoming stays and make changes anytime.</p>
+      </div>
       {bookings.length > 0 ? (
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
           {bookings.map((room) => (
             <div
               key={room._id}
-              className="bg-white border rounded-lg shadow-lg p-6 hover:shadow-xl transition duration-300 transform hover:scale-105"
+              className="card-surface p-6 hover:-translate-y-1 transition duration-300"
             >
               <img
                 src={room.image || "/default-room.jpg"}
                 alt={room.name}
-                className="rounded-lg mb-4 w-full h-48 object-cover"
+                className="rounded-xl mb-4 w-full h-48 object-cover"
               />
-              <h2 className="text-2xl font-semibold text-gray-800">{room.name}</h2>
-              <p className="text-gray-600 mb-2">{room.description}</p>
-              <p className="font-bold text-gray-700">Price: ${room.price}</p>
-              <p className="text-gray-500 mt-2">
+              <h2 className="text-xl font-semibold text-ink-800">{room.name}</h2>
+              <p className="text-ink-600 text-sm mb-3">{room.description}</p>
+              <p className="font-semibold text-ink-700">Price: ${room.price}</p>
+              <p className="text-ink-500 mt-2 text-sm">
                 <strong>Booking Date:</strong> {room.bookingDate || "Not Specified"}
               </p>
-              <div className="flex flex-col md:flex-row space-y-2 md:space-y-0 md:space-x-4 mt-6">
+              <div className="flex flex-col md:flex-row gap-3 mt-6">
                 <button
-                  className="bg-red-500 text-white py-2 px-6 rounded-lg hover:bg-red-600 transition duration-300 w-full md:w-auto"
+                  className="btn-outline border-rose-200 text-rose-600 hover:border-rose-300 hover:text-rose-700 w-full md:w-auto"
                   onClick={() => handleCancelBooking(room._id)}
                 >
                   Cancel Booking
                 </button>
                 <Link to={`/updatedate/${room._id}`} className="w-full md:w-auto">
-                  <button className="bg-green-500 text-white py-2 px-6 rounded-lg hover:bg-green-600 transition duration-300 w-full">
+                  <button className="btn-primary w-full">
                     Update Date
                   </button>
                 </Link>
@@ -91,7 +94,7 @@ const Bookings = () => {
           ))}
         </div>
       ) : (
-        <p className="text-center text-gray-500 mt-8 text-lg">You have no bookings available.</p>
+        <p className="text-center text-ink-500 mt-8 text-lg">You have no bookings available.</p>
       )}
     </div>
   );

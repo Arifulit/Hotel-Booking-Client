@@ -41,7 +41,7 @@ const Login = () => {
                     title: "Login Successful!",
                     text: `Welcome, ${user.displayName || user.email}!`,
                 });
-                navigate(from, { replace: true });
+                navigate("/my-profile", { replace: true });
             })
             // eslint-disable-next-line no-unused-vars
             .catch((error) => {
@@ -64,7 +64,7 @@ const Login = () => {
                     title: "Google Login Successful!",
                     text: `Welcome, ${user.displayName || user.email}!`,
                 });
-                navigate(from, { replace: true });
+                navigate("/my-profile", { replace: true });
             })
             // eslint-disable-next-line no-unused-vars
             .catch((error) => {
@@ -78,37 +78,35 @@ const Login = () => {
     };
 
     return (
-        <div className="flex justify-center items-center min-h-screen">
-            <div className="w-full mt-16 max-w-md bg-white rounded-lg shadow-lg p-8">
+        <div className="min-h-screen bg-ink-50 flex items-center justify-center px-4">
+            <div className="w-full max-w-md card-surface p-8 sm:p-10">
                 <div className="text-center mb-8">
-                    <h1 className="text-3xl font-bold text-gray-800">Login Now!</h1>
+                    <p className="badge-pill">Welcome back</p>
+                    <h1 className="text-3xl font-semibold text-ink-900 mt-3">Login to HotelBooking</h1>
+                    <p className="text-ink-500 text-sm mt-2">Access your bookings and manage your stays.</p>
                 </div>
 
                 <form onSubmit={handleLoginClick} className="space-y-5">
-                    <div className="form-control">
-                        <label className="label">
-                            <span className="label-text text-gray-700">Email</span>
-                        </label>
+                    <div>
+                        <label className="text-sm font-semibold text-ink-700">Email</label>
                         <input
                             type="email"
                             name="email"
                             placeholder="Enter your email"
-                            className="input input-bordered w-full bg-gray-50 border-gray-300 text-gray-800 rounded-md p-3 focus:ring-2 focus:ring-blue-500"
+                            className="input-field mt-2"
                             required
                             value={email}
                             onChange={(e) => setEmail(e.target.value)}
                         />
                     </div>
 
-                    <div className="form-control">
-                        <label className="label">
-                            <span className="label-text text-gray-700">Password</span>
-                        </label>
+                    <div>
+                        <label className="text-sm font-semibold text-ink-700">Password</label>
                         <input
                             type="password"
                             name="password"
                             placeholder="Enter your password"
-                            className="input input-bordered w-full bg-gray-50 border-gray-300 text-gray-800 rounded-md p-3 focus:ring-2 focus:ring-blue-500"
+                            className="input-field mt-2"
                             required
                             value={password}
                             onChange={(e) => setPassword(e.target.value)}
@@ -116,33 +114,31 @@ const Login = () => {
                         <div className="flex justify-end">
                             <Link
                                 to={`/forgot-password?email=${encodeURIComponent(email || "")}`}
-                                className="text-sm text-blue-500 hover:underline mt-2"
+                                className="text-sm text-brand-600 hover:text-brand-700 mt-2"
                             >
                                 Forgot password?
                             </Link>
                         </div>
                     </div>
 
-                    <div className="form-control">
-                        <button
-                            type="submit"
-                            className="w-full bg-blue-500 text-white py-3 rounded-md hover:bg-blue-600 transition duration-300"
-                        >
-                            Login
-                        </button>
-                    </div>
+                    <button
+                        type="submit"
+                        className="btn-primary w-full"
+                    >
+                        Login
+                    </button>
                 </form>
 
-                <div className="mt-6 text-center">
+                <div className="mt-6 text-center space-y-4">
                     <button
                         onClick={handleGoogle}
-                        className="w-full bg-gray-100 border border-gray-300 py-3 rounded-md text-gray-700 hover:bg-gray-200 transition duration-300 mb-4"
+                        className="btn-outline w-full"
                     >
                         Sign in with Google
                     </button>
-                    <p className="text-gray-600">
+                    <p className="text-ink-600 text-sm">
                         Don’t have an account?{" "}
-                        <Link to="/register" className="text-blue-500 hover:underline">
+                        <Link to="/register" className="text-brand-600 hover:text-brand-700 font-semibold">
                             Register
                         </Link>
                     </p>

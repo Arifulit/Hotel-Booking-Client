@@ -48,36 +48,32 @@ const UpdateDate = () => {
   };
 
   return (
-    <div className="lg:w-2/3 mx-auto mt-16 mb-8">
-      <div className="text-center p-8">
-        <h1 className="text-4xl font-bold text-indigo-700">Update Booking Date</h1>
-        <p className="mt-4 text-xl text-gray-600">Choose a new date for your booking</p>
+    <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8 py-16">
+      <div className="text-center mb-10">
+        <h1 className="section-title">Update Booking Date</h1>
+        <p className="section-subtitle">Choose a new date for your upcoming stay.</p>
       </div>
 
-      <div className="bg-white shadow-xl rounded-xl p-8 max-w-xl mx-auto">
+      <div className="card-surface p-8 max-w-xl mx-auto">
         <form onSubmit={handleUpdateBooking} className="space-y-6">
-          {/* Date Picker Section */}
-          <div className="form-control">
-            <label className="text-lg font-medium text-gray-700 mb-3 block">Select New Booking Date:</label>
+          <div>
+            <label className="text-sm font-semibold text-ink-700 mb-2 block">Select New Booking Date</label>
             <DatePicker
               selected={bookingDate}
               onChange={(date) => setBookingDate(date)}
               minDate={new Date()}
               name="time"
               dateFormat="yyyy/MM/dd"
-              className="w-full p-4 border-2 border-gray-300 rounded-lg shadow-md focus:outline-none focus:ring-2 focus:ring-indigo-500"
+              className="input-field"
             />
           </div>
 
-          {/* Submit Button */}
-          <div className="form-control mt-6">
-            <button
-              type="submit"
-              className="w-full bg-indigo-600 text-white py-3 px-6 rounded-lg hover:bg-indigo-700 transition duration-300"
-            >
-              Update Booking Date
-            </button>
-          </div>
+          <button
+            type="submit"
+            className="btn-primary w-full"
+          >
+            Update Booking Date
+          </button>
         </form>
       </div>
     </div>

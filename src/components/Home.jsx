@@ -7,12 +7,12 @@ import Testimonials from "./Testimonials";
 
 const Home = () => {
   return (
-    <div>
+    <div className="bg-ink-50">
       {/* Banner Section */}
       <Banner />
 
       {/* Main Content */}
-      <div className="container mx-auto px-4 py-12 space-y-12">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-16 space-y-16">
         {/* <ContactAddress /> */}
         <FeaturedRooms />
         <Services />

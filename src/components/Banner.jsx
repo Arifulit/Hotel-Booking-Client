@@ -39,7 +39,7 @@ const Banner = () => {
   const navigate = useNavigate();
 
   return (
-    <div className="relative w-full h-[70vh]">
+    <div className="relative w-full h-[75vh]">
       <Swiper
         spaceBetween={30}
         centeredSlides={true}
@@ -60,21 +60,32 @@ const Banner = () => {
               style={{ backgroundImage: `url(${slide.image})` }}
             >
               {/* Overlay */}
-              <div className="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center">
+              <div className="absolute inset-0 bg-hero-gradient flex items-center">
                 {/* Slide Content */}
-                <div className="text-center text-white px-6 max-w-3xl">
-                  <h1 className="text-3xl md:text-5xl font-bold mb-4 drop-shadow-lg">
-                    {slide.title}
-                  </h1>
-                  <p className="text-lg md:text-xl mb-6 opacity-90">
-                    {slide.description}
-                  </p>
-                  <button
-                    onClick={() => navigate("/room")}
-                    className="bg-blue-600 text-white px-6 py-3 rounded-lg shadow-lg hover:bg-blue-700 focus:ring-4 focus:ring-blue-300 transition duration-300"
-                  >
-                    {slide.buttonText}
-                  </button>
+                <div className="mx-auto max-w-7xl px-6 lg:px-10 text-white w-full">
+                  <div className="max-w-2xl">
+                    <span className="badge-pill bg-white/20 text-white">Premium experience</span>
+                    <h1 className="text-4xl md:text-6xl font-semibold leading-tight mt-4 drop-shadow-lg">
+                      {slide.title}
+                    </h1>
+                    <p className="text-lg md:text-xl mt-4 text-white/80">
+                      {slide.description}
+                    </p>
+                    <div className="mt-8 flex flex-wrap gap-4">
+                      <button
+                        onClick={() => navigate("/room")}
+                        className="btn-primary"
+                      >
+                        {slide.buttonText}
+                      </button>
+                      <button
+                        onClick={() => navigate("/contact-address")}
+                        className="btn-outline bg-white/10 border-white/30 text-white hover:text-white"
+                      >
+                        Contact Concierge
+                      </button>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>

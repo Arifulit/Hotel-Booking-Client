@@ -60,21 +60,22 @@ const Services = () => {
   ];
 
   return (
-    <section className="services-section w-full py-16 ">
-      <div className="container mx-auto text-center px-6">
-        <h2 className="text-4xl font-bold text-gray-800 mb-10">Our Services</h2>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-          {services.map((service, index) => (
-            <div
-              key={index}
-              className="service-item bg-white shadow-lg rounded-xl p-8 transform hover:scale-105 transition-all duration-300"
-            >
-              <div className="text-6xl mb-6 text-teal-500">{service.icon}</div>
-              <h3 className="text-2xl font-semibold text-gray-800 mb-4">{service.title}</h3>
-              <p className="text-gray-600">{service.description}</p>
-            </div>
-          ))}
-        </div>
+    <section className="services-section w-full">
+      <div className="text-center mb-10">
+        <h2 className="section-title">Our Services</h2>
+        <p className="section-subtitle">Thoughtful amenities to elevate every stay.</p>
+      </div>
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+        {services.map((service, index) => (
+          <div
+            key={index}
+            className="card-surface p-8 hover:-translate-y-1 transition-transform duration-300"
+          >
+            <div className="text-5xl mb-6">{service.icon}</div>
+            <h3 className="text-xl font-semibold text-ink-800 mb-3">{service.title}</h3>
+            <p className="text-ink-600 text-sm">{service.description}</p>
+          </div>
+        ))}
       </div>
     </section>
   );

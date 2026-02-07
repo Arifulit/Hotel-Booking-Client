@@ -52,32 +52,37 @@ const Rooms = () => {
   }
 
   return (
-    <div className="container mx-auto p-8">
-      <h2 className="text-4xl font-bold text-center text-blue-600 mb-12">Explore Our Rooms</h2>
+    <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-16">
+      <div className="text-center mb-12">
+        <h2 className="section-title">Explore Our Rooms</h2>
+        <p className="section-subtitle">Choose from curated rooms designed for every journey.</p>
+      </div>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
         {rooms.map((room) => (
           <Link
             to={`/rooms/${room._id}`} // Link to room details page
             key={room._id}
-            className="bg-white shadow-lg rounded-lg overflow-hidden hover:scale-105 transform transition duration-300"
+            className="card-surface overflow-hidden hover:-translate-y-1 transition-transform duration-300"
           >
             <div className="relative">
               {/* Room Image */}
               <img
                 src={room.image || "/default-room.jpg"} // Fallback image
                 alt={room.name}
-                className="w-full h-64 object-cover rounded-t-lg"
+                className="w-full h-60 object-cover"
               />
             </div>
-            <div className="p-6">
-              <h3 className="text-2xl font-semibold text-gray-800">{room.name}</h3>
-              <p className="text-gray-600 mt-2">{room.description}</p>
-              <div className="mt-4 flex items-center justify-between">
-                <p className="text-blue-600 font-semibold">Rating: {room.rating}⭐</p>
-                <p className="text-gray-500">
-                  {room.reviews ? room.reviews.length : 0} Reviews
-                </p>
+            <div className="p-6 space-y-3">
+              <div className="flex items-center justify-between">
+                <h3 className="text-xl font-semibold text-ink-800">{room.name}</h3>
+                <span className="text-sm text-ink-500">${room.price || "--"}/night</span>
               </div>
+              <p className="text-ink-600 text-sm">{room.description}</p>
+              <div className="flex items-center justify-between text-sm text-ink-500">
+                <p>Rating: {room.rating || "4.8"}★</p>
+                <p>{room.reviews ? room.reviews.length : 0} Reviews</p>
+              </div>
+              <span className="badge-pill">View details</span>
             </div>
           </Link>
         ))}

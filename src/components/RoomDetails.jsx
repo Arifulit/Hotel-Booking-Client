@@ -17,8 +17,18 @@ const RoomDetails = () => {
   const [reviews, setReviews] = useState([]);
 
   useEffect(() => {
+    if (room) {
+      setSelectedRoom(room);
+    }
+  }, [room]);
+
+  useEffect(() => {
     if (selectedRoom) {
-      fetch(`http://localhost:4000/rooms/${selectedRoom.id}`)
+      const roomId = selectedRoom._id || selectedRoom.id;
+      if (!roomId) {
+        return;
+      }
+      fetch(`http://localhost:4000/rooms/${roomId}`)
         .then((response) => response.json())
         .then((data) => setReviews(data))
         .catch((error) => console.error("Error fetching reviews:", error));
@@ -109,82 +119,88 @@ const RoomDetails = () => {
   };
 
   return (
-    <div className="container mx-auto p-6">
-      <h1 className="text-3xl font-bold mb-4 text-center">Room Details</h1>
-      <ul className="space-y-4">
-        <li
-          key={room.id}
-          className={`p-4 border rounded-lg shadow-md hover:bg-gray-100 cursor-pointer ${
-            room.available ? "hover:bg-green-100" : "hover:bg-red-100"
-          }`}
-          onClick={() => handleSelectRoom(room)}
-        >
-          <h2 className="text-xl font-semibold">{room.name}</h2>
-          <p>{room.description}</p>
-          <p className="text-gray-700">Price: ${room.price} per night</p>
-          <p className={room.available ? "text-green-500" : "text-red-500"}>
-            {room.available ? "Available" : "Not Available"}
-          </p>
-        </li>
-      </ul>
+    <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-16">
+      <div className="text-center mb-12">
+        <h1 className="section-title">Room Details</h1>
+        <p className="section-subtitle">Discover the perfect space for your next getaway.</p>
+      </div>
 
-      {selectedRoom && (
-        <div className="mt-8">
-          <h2 className="text-2xl font-bold mb-4">Selected Room</h2>
+      <div className="grid lg:grid-cols-2 gap-10 items-start">
+        <div className="card-surface overflow-hidden">
           <img
-            src={selectedRoom.image}
-            alt={selectedRoom.name}
-            className="w-full rounded-lg mb-4 shadow-lg"
+            src={room.image || "/default-room.jpg"}
+            alt={room.name}
+            className="w-full h-[420px] object-cover"
           />
-          <p><strong>Name:</strong> {selectedRoom.name}</p>
-          <p><strong>Description:</strong> {selectedRoom.description}</p>
-          <p><strong>Price:</strong> ${selectedRoom.price}</p>
-          <p>
-            <strong>Availability:</strong> {selectedRoom.available ? "Available" : "Not Available"}
-          </p>
-
-          <button
-            onClick={handleBookNow}
-            className={`bg-blue-500 text-white px-6 py-2 rounded-lg transition duration-300 mt-4 ${
-              selectedRoom.available ? "hover:bg-blue-600" : "opacity-50 cursor-not-allowed"
-            }`}
-            disabled={!selectedRoom.available}
-          >
-            Book Now
-          </button>
         </div>
-      )}
+
+        {selectedRoom && (
+          <div className="card-surface p-8 space-y-6">
+            <div>
+              <span className="badge-pill">Signature stay</span>
+              <h2 className="text-3xl font-semibold text-ink-900 mt-3">{selectedRoom.name}</h2>
+              <p className="text-ink-600 mt-3">{selectedRoom.description}</p>
+            </div>
+
+            <div className="flex flex-wrap items-center gap-6 text-sm text-ink-500">
+              <p>Rating: {selectedRoom.rating || "4.9"}★</p>
+              <p>Reviews: {selectedRoom.reviews || 0}</p>
+              <p className={selectedRoom.available ? "text-emerald-600" : "text-rose-500"}>
+                {selectedRoom.available ? "Available" : "Not Available"}
+              </p>
+            </div>
+
+            <div className="flex items-end justify-between">
+              <div>
+                <p className="text-sm text-ink-500">Price per night</p>
+                <p className="text-3xl font-semibold text-ink-900">${selectedRoom.price}</p>
+              </div>
+              <button
+                onClick={handleBookNow}
+                className={`btn-primary ${
+                  selectedRoom.available ? "" : "opacity-60 cursor-not-allowed"
+                }`}
+                disabled={!selectedRoom.available}
+              >
+                Book Now
+              </button>
+            </div>
+          </div>
+        )}
+      </div>
 
       {showModal && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
-          <div className="bg-white rounded-lg shadow-lg max-w-md w-full p-6">
+        <div className="fixed inset-0 bg-ink-900/50 flex justify-center items-center z-50">
+          <div className="card-surface max-w-md w-full p-6">
             <h2 className="text-xl font-semibold mb-4">Booking Summary</h2>
-            <p><strong>Room:</strong> {selectedRoom.name}</p>
-            <p><strong>Price:</strong> ${selectedRoom.price}</p>
-            <p><strong>Description:</strong> {selectedRoom.description}</p>
-            <div className="mb-4">
-              <label className="text-lg font-semibold mb-2 block">Select Booking Date:</label>
+            <div className="space-y-2 text-sm text-ink-600">
+              <p><strong>Room:</strong> {selectedRoom.name}</p>
+              <p><strong>Price:</strong> ${selectedRoom.price}</p>
+              <p><strong>Description:</strong> {selectedRoom.description}</p>
+            </div>
+            <div className="mt-4">
+              <label className="text-sm font-semibold mb-2 block text-ink-700">Select Booking Date</label>
               <DatePicker
                 selected={bookingDate}
                 onChange={(date) => setBookingDate(date)}
                 minDate={new Date()}
                 dateFormat="yyyy/MM/dd"
-                className="w-full p-2 border rounded-lg"
+                className="input-field"
               />
             </div>
-            <div className="flex justify-end space-x-4">
+            <div className="flex justify-end gap-3 mt-6">
+              <button
+                onClick={() => setShowModal(false)}
+                className="btn-outline"
+              >
+                Close
+              </button>
               <button
                 onClick={handleConfirmBooking}
-                className="bg-green-500 text-white px-4 py-2 rounded-lg hover:bg-green-600 transition duration-300"
+                className="btn-primary"
                 disabled={loading}
               >
                 {loading ? "Booking..." : "Confirm"}
-              </button>
-              <button
-                onClick={() => setShowModal(false)}
-                className="bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-600 transition duration-300"
-              >
-                Close
               </button>
             </div>
           </div>

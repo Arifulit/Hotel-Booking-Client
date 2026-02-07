@@ -27,15 +27,17 @@ const UpdateProfile = () => {
   };
 
   return (
-    <div className="container mx-auto p-4">
-      <h1 className="text-3xl font-bold text-center mb-6">Update Your Profile</h1>
+    <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8 py-16">
+      <div className="text-center mb-10">
+        <h1 className="section-title">Update Your Profile</h1>
+        <p className="section-subtitle">Keep your profile details fresh and accurate.</p>
+      </div>
 
-      {error && <p className="text-red-500 text-center">{error}</p>}
+      {error && <p className="text-rose-500 text-center mb-4">{error}</p>}
 
-      <form onSubmit={handleUpdate} className="max-w-lg mx-auto">
-        {/* Display Name */}
-        <div className="mb-4">
-          <label htmlFor="displayName" className="block text-lg font-semibold">
+      <form onSubmit={handleUpdate} className="card-surface p-8 space-y-6">
+        <div>
+          <label htmlFor="displayName" className="block text-sm font-semibold text-ink-700">
             Display Name
           </label>
           <input
@@ -43,14 +45,13 @@ const UpdateProfile = () => {
             type="text"
             value={displayName}
             onChange={(e) => setDisplayName(e.target.value)}
-            className="w-full p-2 border border-gray-300 rounded-lg"
+            className="input-field mt-2"
             placeholder="Enter your name"
           />
         </div>
 
-        {/* Profile Picture URL */}
-        <div className="mb-4">
-          <label htmlFor="photoURL" className="block text-lg font-semibold">
+        <div>
+          <label htmlFor="photoURL" className="block text-sm font-semibold text-ink-700">
             Profile Picture URL
           </label>
           <input
@@ -58,15 +59,15 @@ const UpdateProfile = () => {
             type="text"
             value={photoURL}
             onChange={(e) => setPhotoURL(e.target.value)}
-            className="w-full p-2 border border-gray-300 rounded-lg"
+            className="input-field mt-2"
             placeholder="Enter image URL"
           />
         </div>
 
-        <div className="text-center">
+        <div className="flex justify-end">
           <button
             type="submit"
-            className="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-700 transition duration-300"
+            className="btn-primary"
           >
             Update Profile
           </button>
